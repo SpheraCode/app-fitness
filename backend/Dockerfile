@@ -1,4 +1,4 @@
-FROM node:16.14-alpine
+FROM node:20-alpine
 
 # Mudar para o diretório de trabalho
 WORKDIR /app-backend
