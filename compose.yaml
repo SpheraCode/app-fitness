@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  db_postgres:
+    image: postgres:17
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - app-network
+  
+  # Uncomment the pgAdmin service if you want to use it for database management
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   restart: always
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: admin@admin.com
+  #     PGADMIN_DEFAULT_PASSWORD: admin
+  #   ports:
+  #     - 8081:80
+  #   volumes:
+  #     - pgadmin_data:/var/lib/pgadmin
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - app-network
+
+volumes:
+  postgres_data:
+  # Uncomment the pgAdmin volume if you want to use it
+  # pgadmin_data:
+  
+networks:
+  app-network:
+    driver: bridge
