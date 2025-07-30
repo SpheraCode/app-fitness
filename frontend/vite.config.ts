@@ -8,4 +8,18 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  server: {
+    host: true,
+    port: 5173,
+    watch: {
+      usePolling: true
+    },
+    proxy: {
+      '/api': {
+        target: 'http://backend:3001', // endereço da API
+        changeOrigin: true,
+        // rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  }
 })
