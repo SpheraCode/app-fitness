@@ -1,4 +1,7 @@
-FROM node:20-alpine
+FROM node:slim
+
+RUN apt-get update -y \
+&& apt-get install -y openssl
 
 # Mudar para o diretório de trabalho
 WORKDIR /app-backend
@@ -6,8 +9,12 @@ WORKDIR /app-backend
 # Copiar os package.json, package-lock.json e packages.npm para o container
 COPY package*.json ./
 
+COPY prisma ./prisma/
 # Instalar as dependências Node
 RUN npm install
+
+# Roda o comando para gerar a pasta generated do prisma
+RUN npx prisma generate
 
 # Copiar o restante dos arquivos da aplicação para o container
 COPY . .
@@ -19,4 +26,4 @@ EXPOSE 3001
 ENTRYPOINT [ "npm", "run" ]
 
 # Comando para iniciar o container
-CMD [ "start" ]
+CMD [ "dev" ]
