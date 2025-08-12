@@ -15,16 +15,39 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Members {
+model BaseUSer {
   id String @id @default(uuid())
-  name String
+  firstNname String @map("first_name")
   lastName String @map("last_name")
-  age Int
-  telephone String
   email String @unique
   password String
+  createdAt DateTime @map("created_at")
+  updatedAt DateTime @map("updated_at")
+
+  member Member?
+  client Client?
+  @@map("base_user")
+}
+
+model Member {
+  id String @id @default(uuid())
+  phone String
+  bio String
+  isAdmin Boolean @map("is_admin")
+  baseUserId String @unique @map("base_user_id")
+
+  baseUser   BaseUSer   @relation(fields: [baseUserId], references: [id])
+  @@map("member")
+}
+
+model Client {
+  id String @id @default(uuid())
   isActive Boolean @map("is_active") @default(true)
+  birthday DateTime @db.Date
   height Decimal @db.Decimal(4, 2)
   weight Decimal @db.Decimal(5, 2)
-  @@map("members")
+  baseUserId String @unique @map("base_user_id")
+
+  baseUser   BaseUSer   @relation(fields: [baseUserId], references: [id])
+  @@map("client")
 }
