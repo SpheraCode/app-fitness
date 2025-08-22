@@ -19,14 +19,13 @@ const createUser = async (req, res) => {
   const userDataWithHashedPassword = {
     ...userData, password: bcrypt.hashSync(userData.password, 10)
   }
-  // console.log(userDataWithHashedPassword)
 
   const token = jwt.sign({ data: { userEmail } }, secret, jwtConfig);
 
   // verificando se email já existe no banco
   const verifyEmail = await userService.getUserByEmail(userData.email);
 
-  // retorna mensagem de erro caso já exisra
+  // retorna mensagem de erro caso já exista
   if (verifyEmail) return res.status(409).json({ message: 'User already registered' });
 
   // adiciona ao banco de dados de acordo com o tipo de usuário 

@@ -1,12 +1,9 @@
-const { PrismaClient } = require('../../generated/prisma/index')
-
-const prisma = new PrismaClient()
+const prisma = require('../db');
 
 // cria usuário e adiciona a tabela member no banco de dados
 const createMember = async (member) => prisma.baseUSer.create(
   {
     data: { ...member },
-    // include: { member: true, client: true }
   }
 );
 
@@ -14,7 +11,6 @@ const createMember = async (member) => prisma.baseUSer.create(
 const createClient = async (client) => prisma.baseUSer.create(
   {
     data: { ...client },
-    // include: { member: true, client: true }
   }
 );
 
