@@ -11,12 +11,10 @@ async function main() {
   console.log('🔹 Criando BaseUser como Member...');
   const memberUser = await prisma.baseUSer.create({
     data: {
-      firstNname: 'Jon',
+      firstName: 'Jon',
       lastName: 'Doe',
       email: 'admin@example.com',
       password: 'hashed_password_aqui_1',
-      createdAt: new Date(),
-      updatedAt: new Date(),
       member: {
         create: {
           phone: '11999999999',
@@ -32,12 +30,10 @@ async function main() {
   console.log('🔹 Criando BaseUser como Client...');
   const clientUser = await prisma.baseUSer.create({
     data: {
-      firstNname: 'Maria',
+      firstName: 'Maria',
       lastName: 'Silva',
       email: 'client@example.com',
       password: 'hashed_password_aqui_2',
-      createdAt: new Date(),
-      updatedAt: new Date(),
       client: {
         create: {
           isActive: true,

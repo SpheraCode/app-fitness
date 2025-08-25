@@ -17,12 +17,12 @@ datasource db {
 
 model BaseUSer {
   id String @id @default(uuid())
-  firstNname String @map("first_name")
+  firstName String @map("first_name")
   lastName String @map("last_name")
   email String @unique
   password String
-  createdAt DateTime @map("created_at")
-  updatedAt DateTime @map("updated_at")
+  createdAt DateTime @map("created_at") @default(now())
+  updatedAt DateTime @map("updated_at") @updatedAt
 
   member Member?
   client Client?
